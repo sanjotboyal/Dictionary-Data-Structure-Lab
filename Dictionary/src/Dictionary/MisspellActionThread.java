@@ -40,7 +40,7 @@ public class MisspellActionThread implements Runnable {
     public void run() {
 
         // ADD CODE HERE TO LOAD DICTIONARY
-
+        loadDictionary("src/Dictionary/sampleDictionary.txt",myDictionary);
 
         Platform.runLater(() -> {
             if (dictionaryLoaded) {
@@ -69,9 +69,14 @@ public class MisspellActionThread implements Runnable {
             String correctWord;
 
             input = new Scanner(new File(theFileName));
-
-            // ADD CODE HERE TO READ WORDS INTO THE DICTIONARY     
-
+            
+            while(input.hasNext()){
+                inString = input.nextLine();
+                correctWord = inString;
+                theDictionary.add(inString, correctWord);
+                //System.out.println("|"+ inString + "| LOL TEST");
+            }
+            dictionaryLoaded = true;
             
             
         } catch (IOException e) {
@@ -93,8 +98,7 @@ public class MisspellActionThread implements Runnable {
             String aWord;
 
             input = new Scanner(new File(theFileName));
-            // ADD CODE HERE    
-
+            // ADD CODE HERE
             
             
         } catch (IOException e) {

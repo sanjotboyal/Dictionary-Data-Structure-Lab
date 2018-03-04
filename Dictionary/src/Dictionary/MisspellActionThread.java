@@ -41,6 +41,7 @@ public class MisspellActionThread implements Runnable {
 
         // ADD CODE HERE TO LOAD DICTIONARY
         loadDictionary("src/Dictionary/sampleDictionary.txt",myDictionary);
+        checkWords("src/Dictionary/check.txt",myDictionary);
 
         Platform.runLater(() -> {
             if (dictionaryLoaded) {
@@ -50,6 +51,7 @@ public class MisspellActionThread implements Runnable {
             }
         });
         
+       
         // ADD CODE HERE TO CALL checkWords
         
 
@@ -98,7 +100,10 @@ public class MisspellActionThread implements Runnable {
             String aWord;
 
             input = new Scanner(new File(theFileName));
-            // ADD CODE HERE
+            
+            
+            
+            
             
             
         } catch (IOException e) {

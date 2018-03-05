@@ -1,6 +1,7 @@
 package Dictionary;
 
 import java.io.*;
+import static java.lang.Character.isLetter;
 import java.util.*;
 import javafx.application.Platform;
 
@@ -41,7 +42,7 @@ public class MisspellActionThread implements Runnable {
 
         // ADD CODE HERE TO LOAD DICTIONARY
         loadDictionary("src/Dictionary/sampleDictionary.txt",myDictionary);
-        checkWords("src/Dictionary/check.txt",myDictionary);
+        
 
         Platform.runLater(() -> {
             if (dictionaryLoaded) {
@@ -53,6 +54,7 @@ public class MisspellActionThread implements Runnable {
         
        
         // ADD CODE HERE TO CALL checkWords
+        checkWords("src/Dictionary/check.txt",myDictionary);
         
 
     }
@@ -76,7 +78,6 @@ public class MisspellActionThread implements Runnable {
                 inString = input.nextLine();
                 correctWord = inString;
                 theDictionary.add(inString, correctWord);
-                //System.out.println("|"+ inString + "| LOL TEST");
             }
             dictionaryLoaded = true;
             
@@ -85,7 +86,6 @@ public class MisspellActionThread implements Runnable {
             System.out.println("There was an error in reading or opening the file: " + theFileName);
             System.out.println(e.getMessage());
         }
-
     }
 
     /**
@@ -98,13 +98,29 @@ public class MisspellActionThread implements Runnable {
         try {
             String inString;
             String aWord;
-
+            
+            
             input = new Scanner(new File(theFileName));
             
-            
-            
-            
-            
+            while(input.hasNext()){
+                inString = input.nextLine();
+                
+                String delimeters = "\":?;!)([, .]\"";
+                
+                StringTokenizer sT = new StringTokenizer(inString, delimeters,true);
+                while(sT.hasMoreTokens()){
+                    aWord = sT.nextToken();
+                    //System.out.println(aWord);
+                                       
+                    myLines.addWordlet(new Wordlet(aWord,checkWord(aWord,myDictionary)));
+                    
+                }
+                
+                myLines.nextLine();
+                showLines(myLines);
+                
+                
+            }
             
         } catch (IOException e) {
             System.out.println("There was an error in reading or opening the file: " + theFileName);
@@ -120,7 +136,14 @@ public class MisspellActionThread implements Runnable {
     public boolean checkWord(String word, DictionaryInterface<String, String> theDictionary) {
         boolean result = false;
 
-        // ADD CODE HERE    
+        if(!(isLetter(word.charAt(0)))){
+            result = true;
+        }
+        else if(theDictionary.contains(word)){
+            result = true;
+        }else{
+            result = false;
+        }
 
         
         

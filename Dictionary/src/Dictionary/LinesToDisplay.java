@@ -34,7 +34,6 @@ public class LinesToDisplay {
         //ADD CODE HERE TO ADD A WORDLET TO THE CURRENT LINE
         lines[currentLine].add(w);
         
-
     }
 
     /**

@@ -74,11 +74,16 @@ public class MisspellActionThread implements Runnable {
 
             input = new Scanner(new File(theFileName));
             
+            //Loops through entire file
             while(input.hasNext()){
+                //gets the string
                 inString = input.nextLine();
+                //correct word is equal to that documents values
                 correctWord = inString;
+                //add the key and value to the dictionary
                 theDictionary.add(inString, correctWord);
             }
+            //set its loaded to true 
             dictionaryLoaded = true;
             
             
@@ -102,21 +107,28 @@ public class MisspellActionThread implements Runnable {
             
             input = new Scanner(new File(theFileName));
             
+            //read the entire text file
             while(input.hasNext()){
                 inString = input.nextLine();
-                
+                //delimeters
                 String delimeters = "\":?;!)([, .]\"";
                 
+                //set string tokenizer (true value returns delimeters)
                 StringTokenizer sT = new StringTokenizer(inString, delimeters,true);
+                
+                //sets each word to a seperate wordlet
                 while(sT.hasMoreTokens()){
                     aWord = sT.nextToken();
-                    //System.out.println(aWord);
-                                       
+                    System.out.println(aWord);
+                    
+                    //create wordlet and it it too lines               
                     myLines.addWordlet(new Wordlet(aWord,checkWord(aWord,myDictionary)));
                     
                 }
                 
+                //move to nextLine
                 myLines.nextLine();
+                //show Line
                 showLines(myLines);
                 
                 
@@ -135,18 +147,19 @@ public class MisspellActionThread implements Runnable {
      */
     public boolean checkWord(String word, DictionaryInterface<String, String> theDictionary) {
         boolean result = false;
-
-        if(!(isLetter(word.charAt(0)))){
+        
+        //if the words first character is not a letter (so its a punctuation and its not a component of a word. 
+        if((!(isLetter(word.charAt(0))))&& (word.length()<2)){
+            //sets punctuation to true (blue value)
             result = true;
         }
-        else if(theDictionary.contains(word)){
+        //else if dictionary's value is equal to the searched word (true)
+        else if(theDictionary.getValue(word) != null && theDictionary.getValue(word).equals(word)){
             result = true;
+        //else its false 
         }else{
             result = false;
         }
-
-        
-        
 
         return result;
 

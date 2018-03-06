@@ -17,9 +17,12 @@ public class LinesToDisplay {
      * Constructor for objects of class LinesToDisplay
      */
     public LinesToDisplay() {
+       //constructor for lines array 
        lines = (AList<Wordlet>[])new AList[LINES+1];
+       //currentLine set to 0 
        currentLine = 0;
        
+       //Loops through the array 
        for(int i =0; i<LINES+1; i++){
            lines[i] = new AList<>();
        }
@@ -43,13 +46,18 @@ public class LinesToDisplay {
      */
     public void nextLine() {
         //ADD CODE TO HANDLE THE NEXT LINE
+        
+        //if the currentLine is equal to the max lines
         if (currentLine == LINES){
+            //shift everything
             for(int i =0; i<LINES; i++){
                 lines[i] = lines[i+1];
             }
+            //create a new array list in the ending element 
             lines[LINES] = new AList<>();
         }
         else{
+            //move the Current Line up
             currentLine++;
         }
     }
